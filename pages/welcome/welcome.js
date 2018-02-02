@@ -8,9 +8,9 @@ Page({
     })
   },
   onUnload: function() {
-    console.log('onUnload');
+    // console.log('onUnload');
   },
   onHide: function() {
-    console.log('onHide');
+    // console.log('onHide');
   }
 })

@@ -1,3 +1,5 @@
 text {
     font-family: MicroSoft Yahei,Arial, Helvetica, sans-serif;
+    font-size: 33rpx;
+    color: #666;
 }

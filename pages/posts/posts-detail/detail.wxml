@@ -1,0 +1,19 @@
+<view class='container'>
+    <image class="post-image" src='{{postData.headImgSrc}}'></image>
+    <image catchtap="musicPlay" class="audio" src="{{isPlayingMusic?'/images/music/music-stop.png':'/images/music/music-start.png'}}"></image>
+    <view class='post-publish-info'>
+        <image class='post-author' src='{{postData.avatar}}'></image>
+        <text class='author'>{{postData.author}}</text>
+        <text class='addition-info'>发表于 {{postData.dateTime}}</text>
+    </view>
+    <text class='post-title'>{{postData.title}}</text>
+    <view class='interval'>
+        <view class='operation'>
+            <image catchtap="collect" wx:if="{{collected}}" src="/images/icon/collection.png"></image>
+            <image catchtap="collect" wx:else src="/images/icon/collection-anti.png"></image>
+            <!-- <image catchtap="onShareAppMessage" src="/images/icon/share.png"></image>  -->
+            <button size='mini' open-type="share"><image src="/images/icon/share.png"></image></button>
+        </view>
+    </view>
+    <text class='post-content'>{{postData.detail}}</text>
+</view> 
