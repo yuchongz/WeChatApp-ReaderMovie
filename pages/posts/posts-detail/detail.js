@@ -1,5 +1,5 @@
 var post_content = require('../../../data/posts_data.js');
-var globalData = getApp();
+var app = getApp();  // 取得全局app实例
 
 Page({
   data: {
@@ -8,8 +8,9 @@ Page({
   },
   /* 可以在 onLoad 中获取打开当前页面所调用的 query 参数，query参数以名值对的方式作为函数参数传递给onLoad函数 */
   onLoad: function (query) {    // 参数可任意命名，不一定是query
+    var _this = this;
     var id = query.postId;    // query是对象，可以通过访问对象属性的方式获取query参数的值
-    if (globalData.isPlayingMusic && globalData.musicPostId === id) {
+    if (app.globalData.isPlayingMusic && app.globalData.musicPostId === id) {
       this.setData({
         isPlayingMusic: true
       });
@@ -35,6 +36,40 @@ Page({
       postData: postData,
       id: id
     });
+    this.bindMusicEvent();  // 绑定有关音乐播放器的事件处理函数
+  },
+  bindMusicEvent: function () {
+    var _this = this;
+    /* 音乐从停止或者暂停状态到播放状态时触发的事件处理函数 */
+    wx.onBackgroundAudioPlay(function () {
+      /* 只有页面id和全局数据的musicPostId一致并且音乐没有在播放才会执行方法体 */
+      if (!(app.globalData.isPlayingMusic) && app.globalData.musicPostId === _this.data.id) {
+        _this.setData({
+          isPlayingMusic: true
+        });
+        app.globalData.isPlayingMusic = true;
+        // app.globalData.musicPostId = _this.data.id;
+      }
+    });
+    /* 音乐从暂停或者播放状态到停止状态时触发的事件处理函数 */
+    wx.onBackgroundAudioStop(function () {
+      _this.setData({
+        isPlayingMusic: false
+      });
+      app.globalData.isPlayingMusic = false;
+      app.globalData.musicPostId = null;
+    });
+    /* 音乐从播放状态到暂停状态时触发的事件处理函数 */
+    wx.onBackgroundAudioPause(function () {
+      /* 只有页面id和全局数据的musicPostId一致并且音乐在播放才会执行方法体 */
+      if (app.globalData.isPlayingMusic && app.globalData.musicPostId === _this.data.id) {
+        _this.setData({
+          isPlayingMusic: false
+        });
+        app.globalData.isPlayingMusic = false;
+        app.globalData.musicPostId = _this.data.id;
+      }
+    });
   },
   /* 点击收藏（或未收藏）图标时调用的事件处理函数 */
   collect: function () {
@@ -46,7 +81,7 @@ Page({
       collected: !if_collected
     });
     wx.showToast({
-      title: !if_collected ? "收藏成功" : "取消成功",
+      title: !if_collected ? "收藏成功" : "已取消收藏",
       duration: 1000
     })
   },
@@ -54,19 +89,25 @@ Page({
   onShareAppMessage: function (res) {
     return {
       title: this.data.postData.title,
-      imageUrl: this.data.postData.imgSrc
+      imageUrl: this.data.postData.imgSrc,
+      path: '/pages//posts/posts-detail/detail.wxml?postId=' + this.data.id
     }
   },
+  /* 点击图片上的音乐播放或暂停按钮调用的事件处理函数 */
   musicPlay: function () {
     var music = this.data.postData.music;
     var _this = this;
     var musicPlay = this.data.isPlayingMusic;
-    if (musicPlay) {
+    /* 如果音乐在播放，那么将暂停播放音乐并且改变各有关音乐播放状态的数据 */
+    if (musicPlay) {                
       wx.pauseBackgroundAudio();
       this.setData({
         isPlayingMusic: !musicPlay
       });
+      app.globalData.isPlayingMusic = false;
+      app.globalData.musicPostId = _this.data.id;
     }
+    /* 如果音乐没有在播放，那么将播放音乐并且改变各有关音乐播放状态的数据 */
     else {
       wx.playBackgroundAudio({
         dataUrl: music.url,
@@ -78,27 +119,8 @@ Page({
           });
         }
       });
+      app.globalData.isPlayingMusic = true;
+      app.globalData.musicPostId = _this.data.id;
     }
-    wx.onBackgroundAudioPlay(function () {
-      _this.setData({
-        isPlayingMusic: true
-      });
-      globalData.isPlayingMusic = true;
-      globalData.musicPostId = _this.data.id;
-    });
-    wx.onBackgroundAudioStop(function () {
-      _this.setData({
-        isPlayingMusic: false
-      });
-      globalData.isPlayingMusic = false;
-      globalData.musicPostId = null;
-    });
-    wx.onBackgroundAudioPause(function () {
-      _this.setData({
-        isPlayingMusic: false
-      });
-      globalData.isPlayingMusic = false;
-      globalData.musicPostId = null;
-    });
   }
 })
