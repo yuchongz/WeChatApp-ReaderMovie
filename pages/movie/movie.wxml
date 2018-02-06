@@ -1,0 +1,7 @@
+<import src="movie-list/movie-list-template.wxml" />
+<view class='all'>
+  <!-- <input type="text" placeholder='釜山行' class="search" placeholder-class='placeholder'></input> -->
+  <template is="movieList" data="{{...in_theaters}}" />
+  <template is="movieList" data="{{...coming_soon}}" />
+  <template is="movieList" data="{{...top250}}" />
+</view>

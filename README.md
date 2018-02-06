@@ -12,7 +12,10 @@
     - <span style="font-size:16px;">**welcome**</span>`（文件夹，页面初始页）`
     -  <span style="font-size:16px;">**posts**</span>`（文件夹，新闻阅读列表页）`
     	-  <span style="font-size:12px;">**posts-detail**</span>`（文件夹，文章详情页）`
+    -   <span style="font-size:16px;">**movie**</span>`（文件夹，底部tab中的电影页面）`
 - <span style="font-size:20px;">**images**</span>`（图片文件夹）`
+- <span style="font-size:20px;">**util**</span>`（共用的方法文件夹）`
+- <span style="font-size:20px;">**data**</span>`（App数据）`
 - <span style="font-size:20px;">**app.js**</span>`（全局js文件）`
 - <span style="font-size:20px;">**app.wxss**</span>`（全局css文件）`
 - <span style="font-size:20px;">**app.json**</span>`（小程序的配置文件）`
@@ -65,3 +68,12 @@
 <strong>原因：</strong>经查，发现我把有关音乐播放的几个事件处理函数wx.onBackgroundAudioPlay、wx.onBackgroundAudioStop、wx.onBackgroundAudioPause写在了页面操作音乐播放按钮的事件处理函数musicPlay中，导致只有点击那个按钮有关音乐播放的三个事件才会被绑定上我写的事件处理函数。
 
 <strong>解决办法：</strong>把wx.onBackgroundAudioPlay、wx.onBackgroundAudioStop、wx.onBackgroundAudioPause这三个事件处理函数单独拎出来放在函数bindMusicEvent里，再在onLoad函数中调用这个函数。
+
+#### <span style="color:#6395AE">**2018.02.06**</span> (`tag`：[movie-page](https://github.com/yuchongz/WeChatApp-ReaderMovie/tree/movie-page))：
+
+<strong>版本描述：</strong>电影页面的开发代码<br />
+
+<strong>学习到的知识：</strong><br />
+
+- template的嵌套用法，组件化的编程思想；
+- 当发起异步的网络请求时是不会阻塞代码执行的，意思是代码不会等到网络请求完成才执行下面的代码，需要谨记这一点，不然很容易就会犯在请求数据返回前就去执行需要请求数据的代码，造成bug，可以把这些需要请求数据的代码放在网络请求方法的success函数中。
