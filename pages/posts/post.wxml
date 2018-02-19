@@ -1,11 +1,17 @@
 <import src="posts-item/posts-item-template.wxml" />
 <view>
-    <swiper catchtap="swiperTap" indicator-dots="true" autoplay="true" interval="2000" circular="true">
-        <swiper-item><image src='/images/wx.png' data-id="3"></image></swiper-item>
-        <swiper-item><image src='/images/vr.png' data-id="4"></image></swiper-item>
-        <swiper-item><image src='/images/iqiyi.png' data-id="5"></image></swiper-item>
-    </swiper>
-    <block wx:for="{{post_content}}">
-        <template is="posts-item" data="{{...item}}" />
-    </block>
+  <swiper catchtap="swiperTap" indicator-dots="true" autoplay="true" interval="2000" circular="true">
+    <swiper-item>
+      <image src='/images/wx.png' data-id="3"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='/images/vr.png' data-id="4"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='/images/iqiyi.png' data-id="5"></image>
+    </swiper-item>
+  </swiper>
+  <block wx:for="{{post_content}}" wx:key="index" wx:for-item="item">
+    <template is="posts-item" data="{{...item}}" />
+  </block>
 </view>

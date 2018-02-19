@@ -77,3 +77,14 @@
 
 - template的嵌套用法，组件化的编程思想；
 - 当发起异步的网络请求时是不会阻塞代码执行的，意思是代码不会等到网络请求完成才执行下面的代码，需要谨记这一点，不然很容易就会犯在请求数据返回前就去执行需要请求数据的代码，造成bug，可以把这些需要请求数据的代码放在网络请求方法的success函数中。
+
+#### <span style="color:#6395AE">**2018.02.19**</span> (`tag`：[movie-detail-page](https://github.com/yuchongz/WeChatApp-ReaderMovie/tree/movie-detail-page))：
+
+<strong>版本描述：</strong>电影搜索和电影详情的开发代码<br />
+
+<strong>学习到的知识：</strong><br />
+
+- 如何上滑加载数据和下拉刷新数据？ 若只要上滑加载数据可以使用组件scroll-view，但若还要下拉刷新数据，那么要使用
+微信提供的页面相关事件处理函数，如onReachBottom上滑触底事件处理函数和onPullDownRefresh下拉刷新事件处理函数等；
+- Image组件的图片裁剪、缩放的模式，本小程序使用的是aspectFill缩放模式，只保证图片的短边能完全显示出来，而另一边
+按照图片的比例对图片进行截取显示。

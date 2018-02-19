@@ -1,7 +1,7 @@
 @import 'posts-item/posts-item-template.wxss';
 
 page {
-  background: rgba(0, 0, 0, .1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 swiper {
@@ -13,4 +13,3 @@ swiper image {
   width: 100%;
   height: 500rpx;
 }
-

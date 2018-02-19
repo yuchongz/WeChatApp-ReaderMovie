@@ -1,0 +1,49 @@
+<import src="../score/score-template.wxml" />
+<view class="detail-container">
+  <view class='detail-basicInfo'>
+    <image class='detail-imgL' src="{{detail.movieImg}}" mode='aspectFill'></image>
+    <view class='detail-text'>
+      <text class='movie-name'>{{detail.title}}</text>
+      <text class='country-year'>{{detail.country}} . {{detail.year}}</text>
+      <view class='like-comment'>
+        <text class='like'><text class="count">{{detail.wishCount}}</text> 人喜欢</text>
+        <text><text class="count">{{detail.commentCount}}</text> 条评论</text>
+      </view>
+    </view>
+    <image class='detail-imgS' src='{{detail.movieImg}}' data-src="{{detail.movieImg}}" catchtap='checkBigImg'></image>
+  </view>
+  <view class='detailed-info-container'>
+    <text class='movie-originName'>{{detail.originalTitle}}</text>
+    <view class='small-container'>
+      <text class='describe-text score-title'>评分</text>
+      <template is="score" data="{{stars:detail.stars,movieGrade:detail.movieGrade}}" />
+    </view>
+    <view class='small-container'>
+      <text class='describe-text'>导演</text>
+      <text>{{detail.director.name}}</text>
+    </view>
+    <view class='small-container'>
+      <text class='describe-text'>影人</text>
+      <text>{{detail.casts}}</text>
+    </view>
+    <view class='small-container'>
+      <text class='describe-text'>类型</text>
+      <text>{{detail.generes}}</text>
+    </view>
+  </view>
+  <view class='detailed-info-container'>
+    <text class='info-title'>剧情简介</text>
+    <text class='summary-content'>{{detail.summary}}</text>
+  </view>
+  <view class='detailed-info-container'>
+    <text class='info-title'>影人</text>
+    <scroll-view class='castInfo-container' scroll-x="true">
+      <block wx:for="{{detail.castsInfo}}" wx:for-item="cast" wx:key="index">
+        <view class='castInfo'>
+          <image class='castInfo-img' src='{{cast.img}}'></image>
+          <text class='castInfo-name'>{{cast.name}}</text>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+</view>

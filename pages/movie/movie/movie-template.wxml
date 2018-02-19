@@ -1,6 +1,6 @@
 <import src='../score/score-template.wxml' />
 <template name="movie">
-  <view class='movie' data-id="{{movieId}}">
+  <view class='movie' data-id="{{movieId}}" catchtap='movieDetail'>
     <image class='movie-img' src='{{movieImageUrl}}'></image>
     <text class='movie-name'>{{movieName}}</text>
     <template is="score" data="{{movieGrade:movieGrade,stars:stars}}" />

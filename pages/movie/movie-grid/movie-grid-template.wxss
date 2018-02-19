@@ -1,0 +1,17 @@
+@import '../movie/movie-template.wxss';
+/* .more-container {
+  height: 1175rpx;
+} */
+
+.more-movie-container {
+  margin: 10rpx 26rpx;
+}
+
+.single-movie {
+  float: left;
+  margin-right: 35rpx;
+}
+
+.single-movie:nth-of-type(3n+3) {
+  margin-right: 0;
+}
